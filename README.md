@@ -6,9 +6,10 @@ Projeto feito para aplicar os conhecimentos de TypeScript, Node, Mongo.
 
 ### Instalação
 `npm install`
+'npm install mongoose'
 
 ### .env
-Utilizei váriaveis de ambiente também 
+Utilizei variáveis de ambiente também 
 ex:
 PORT=2000
 
