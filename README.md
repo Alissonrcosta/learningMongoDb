@@ -6,7 +6,7 @@ Projeto feito para aplicar os conhecimentos de TypeScript, Node, Mongo.
 
 ### Instalação
 `npm install`
-'npm install mongoose'
+`npm install mongoose`
 
 ### .env
 Utilizei variáveis de ambiente também 
