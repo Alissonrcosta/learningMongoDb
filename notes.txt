@@ -1,0 +1,117 @@
+Depois de ter Instalado o Server Comunitty do Mongo e também o Compass(Client)!
+
+Vamos iniciar instalando uma biblioteca chamada de Mongoose, é a biblioteca mais completa que existe suporta Typescript e é muito profissional.
+
+1)Vamos inciar instalando o Mongoose no nosso projeto.
+Terminal: npm install mongoose
+2)Vamos instalar os types também
+Terminal: npm install @types/mongoose --save-dev
+
+3) criamos uma pasta no src e damos o nome de database e criamos arquivo chamado mongo.ts;
+
+no arquivo precismos importar o dotenv 
+import dotenv from 'dotenv';
+
+e também uma funçao do mongoose;
+import mongoose, { connect } from "mongoose";
+
+iniciamos o dotenv
+dotenv.config();
+
+e criamos uma funçao para ser exportada para o server.ts
+
+export const mongoConnect = async() => {
+    try{
+        console.log('Tentando conectar com o banco MongoDb');
+        await mongoose.connect(process.env.MONGO_URL as string)
+        console.log('Conectado ao MongoDb')
+    }catch(error){
+    console.log("Erro ao tentar se conectar com MongoDB, ", error)
+    }
+
+    
+};
+
+4) Vamos criar nosso model(model sempre no singular)
+
+models>User.ts
+
+precisamos fazer 3 coisas para criar nosso model compativel com mongoose, uma delas é por conta de usar o TypeScript
+
+1)Criar type do nosso model especifico(types com a mesma estrutura para todos os usuários).
+2)Criar o Schema, ele é um type especifico para Mongo(lib Mongoose) quem é campo obrigatoria, quem tem que guardar numero ou não quem tem valor padrão.
+3)criamos o própio modelo, fazemos uma verificação para criar ou pegar caso ele já exista.
+
+
+-----------Consultando dados no MongoDB----------------
+podemos usar o find() o findOne() findById();
+
+
+----------Ordenando resultados------------------
+para ordenar resultador podemos usar o o .sort() e definir qual idem deve ser ordenado e se podemos ordenar ascendente ou decrescente com 1 e -1
+
+
+--------- Limitar e pular resultados--------------
+usamos .skip() para pular registros e limit() para limitar quantidade de registros
+
+---------Inserindo dados no MongoDB---------------
+no type do array use string[] para não ter um limite de quantas string pretende receber
+
+vantagem de salvar depois é que você pode fazer alterações no código antes de salvar no banco
+
+let newUser = new User();
+    newUser.name = {firtName: 'Monaliza', lastName: 'Vasconcelos'};
+    newUser.email = 'monaliza@hotmail.com';
+    newUser.interests = ['rock','arte', 'leitura','academia','dança'];
+    newUser.age = 32;
+
+    let usuarioteste = await newUser.save();
+
+    console.log('NewUser', usuarioteste);
+
+-----------Atualizando dados no MongoDB-------------------
+3 formas principais de atualizar dados no mongoDb
+
+-updateMany({condição},{update}2 parametros pelo menos), 1 condição para atualizar, e 2 é o que vou atualizar. obs são dois objetos {}
+-updateOne para encontrar e atualizar um unico registro(condição mais especifica)
+
+await User.updateOne(
+        {"name.firstName": 'Paulo'},
+        {age: 56}
+    )
+
+
+-terceiro forma eu tenho o objeto do usuário e atualizo algum registro dele
+
+no terceiro metodo verificamos se a variavel retorna null para poder realizar alteração
+
+
+let alisson = await User.findOne({email: 'alisson.costa@wifire.me'});
+    if(alisson){
+        alisson.name.lastName = 'Ferreira',
+        alisson.age = 19
+
+        alisson.save();
+    }
+
+
+------------------Deletando dados no MongoDB------------------
+metodos 
+await User.findOneAndDelete(); procuramos a condição para deletar um registro
+
+quando eu tenho o usuário posso usar 
+
+await results.remove();
+
+ex: 
+
+let results = await User.findOne({_id: id});
+    if(results){
+       await results.deleteOne();
+    }
+    res.redirect('/');
+
+
+
+
+

@@ -1,0 +1,18 @@
+{{>partials/header}}
+  <h1>Editar Usuário</h1>
+  
+
+<fieldset>
+<legend>Atualizar Usuário</legend>
+
+<form method="POST" action="/usuario/{{results.id}}/atualizar">
+<input type="text" name="firstName" value="{{ results.name.firstName }}"/><br/>
+<input type="text" name="lastName" value="{{ results.name.lastName }}"/><br/>
+<input type="email" name="email" value="{{ results.email }}"/><br/>
+<input type="text" name="interests" value="{{ results.interests }}"/><br/>
+<input type="text" name="age" value="{{ results.age }}"/><br/><br/>
+<input type="submit" value="Atualizar">
+</form>
+</fieldset>
+
+{{>partials/footer}}

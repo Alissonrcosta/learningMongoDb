@@ -1,0 +1,37 @@
+{{>partials/header}}
+
+<fieldset>
+<legend>Criar novo Usuário</legend>
+
+<form method="POST" action="novo-usuario">
+<input type="text" name="firstName" placeholder="Digite seu nome"/><br/>
+<input type="text" name="lastName" placeholder="Digite seu sobrenome"/><br/>
+<input type="email" name="email" placeholder="Digite seu email"/><br/>
+<input type="text" name="interests" placeholder="Digite seus interesses(separados por vírgula)"/><br/>
+<input type="text" name="age" placeholder="Digite sua idade"/><br/><br/>
+<input type="submit" value="Criar">
+</form>
+</fieldset>
+
+<h2>Usuários</h2>
+
+<table border="1">
+<tr>
+<th>Nome</th>
+<th>Idade</th>
+<th>Interesses</th>
+<th>Ações</th>
+</tr>
+{{#users}}
+<tr>
+<td>{{name.firstName }} {{name.lastName}}</td>
+<td>{{age}}</td>
+<td>{{interests}}</td>
+<td><a href="/usuario/{{_id}}/adicionaridade"> +1 Ano</a> | <a href="/usuario/{{_id}}/excluir">Excluir</a> | <a href="/usuario/{{_id}}/editar">Editar</a></td>
+</tr>
+{{/users}}
+</table>
+
+
+
+{{>partials/footer}}    
